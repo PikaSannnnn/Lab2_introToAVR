@@ -32,7 +32,11 @@
 # # to be scoped at the function level (for static variables) if there are naming conflicts. The 
 # # variables listed here will display everytime you hit (and stop at) a breakpoint
 # watch = ['PORTB']
-tests = [ {'description': 'Dark & Door is Open',
+tests = [ {'description': 'Dark & Door is Closed',
+    'steps': [ {'inputs': [('PINA',0x00)], 'iterations': 5 } ],
+    'expected': [('PORTB',0x00)],
+    },
+    {'description': 'Dark & Door is Open',
     'steps': [ {'inputs': [('PINA', 0x01)], 'iterations': 5 } ],
     'expected': [('PORTB',0x01)],
     },
