@@ -56,6 +56,10 @@ tests = [ {'description': 'All Open (0000)',
     'steps': [ {'inputs': [('PINA',0x0F)], 'iterations': 5 } ],
     'expected': [('PORTC', 0)],
     },
+    {'description': 'TESTING FAIL: 0100 -> Correct: 1; Testing: 0',
+    'steps': [ {'inputs': [('PINA',0x04)], 'iterations': 5 } ],
+    'expected': [('PORTC', 0)],
+    },
     ]
 #watch = ['PORTB']
 
