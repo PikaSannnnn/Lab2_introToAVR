@@ -1,41 +1,12 @@
 /*	Author: sdong027
  *  Partner(s) Name: 
  *	Lab Section:
- *	Assignment: Lab #  Exercise #
+ *	Assignment: Lab #2  Exercise #2
  *	Exercise Description: [optional - include for your own benefit]
  *
  *	I acknowledge all content contained herein, excluding template or example
  *	code, is my own original work.
  */
-// #include <avr/io.h>
-// #ifdef _SIMULATE_
-// #include "simAVRHeader.h"
-// #endif
-
-// int main(void) {
-//     DDRA = 0x00; PORTA = 0xFF; // Configure port A's 8 pins as inputs
-//     DDRB = 0xFF; PORTB = 0x00; // Configure port B's 8 pins as outputs
-//                     // Initialize output on PORTB to 0x00
-//     unsigned char tmpB = 0x00; // Temporary variable to hold the value of B
-// 	   unsigned char tmpA = 0x00; // Temporary variable to hold the value of A
-//     while(1) {
-//         // 1) Read input
-// 		tmpA = PINA & 0x01;
-// 		// 2) Perform computation
-// 		// if PA0 is 1, set PB1PB0 = 01, else = 10
-// 		if (tmpA == 0x01) { // True if PA0 is 1
-// 			tmpB = (tmpB & 0xFC) | 0x01; // Sets tmpB to bbbbbb01
-// 							 // (clear rightmost 2 bits, then set to 01)
-// 		} else {
-// 			tmpB = (tmpB & 0xFC) | 0x02; // Sets tmpB to bbbbbb10
-// 							 // (clear rightmost 2 bits, then set to 10)
-// 		}	
-//         // 3) Write output
-//         PORTB = tmpB;	
-//     }
-//     return 0;
-// }
-
 #include <avr/io.h>
 #ifdef _SIMULATE_
 #include "simAVRHeader.h"
@@ -43,24 +14,23 @@
 
 int main(void) {
 	DDRA = 0x00; PORTA = 0xFF; // Configure port A's 8 pins as inputs
-	DDRB = 0xFF; PORTB = 0x00; // Configure port B's 8 pins as outputs, initialize to 0s
-	unsigned char tmpB = 0x00; // Temporary variable to hold the value of B
+	DDRC = 0xFF; PORTC = 0x00; // Configure port B's 8 pins as outputs, initialize to 0s
 	unsigned char tmpA = 0x00; // Temporary variable to hold the value of A
-while(1) {
-	// 1) Read input
-	tmpA = PINA & 0x03;	
-	// 2) Perform computation
-	// if PA0 is 1, set PB1PB0 = 01, else = 10
-	if ((tmpA & 0x01) == 0x01) { // PA0 is 1, 
-		if ((tmpA & 0x02) == 0x00) { // PA1 is 0
-			tmpB = (tmpB & 0xFC) | 0x01; // Sets tmpB to bbbbbb01
+	unsigned char cntavail = 0x00; // Counter of available spaces
+
+	while(1) {
+		// Read pins 3 to 0
+		tmpA = PINA & 0x0F;	
+		// Counting number of available spaces
+		unsigned char i;
+		for (i = 0; i < 4; i++) {
+			cntavail << 1;
+			cntavail = cntavail | (tempA & 0x01);
+			tmpA >> 1;
 		}
-	} 
-	else {
-		tmpB = (tmpB & 0xFC) | 0x00;
-	}
-	// 3) Write output
-	PORTB = tmpB;	
+
+		// 3) Write output
+		PORTB = cntavail;
 	}
 	return 0;
 }
