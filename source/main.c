@@ -24,13 +24,14 @@ int main(void) {
 		// Counting number of available spaces
 		unsigned char i;
 		for (i = 0; i < 4; i++) {
-			cntavail << 1;
-			cntavail = cntavail | (tmpA & 0x01);
-			tmpA >> 1;
+			// cntavail = (cntavail & 0x0F) | (cntavail << 1 | !((tmpA >> i) & 0x01));
+			if ((tmpA >> i) & 0x01) {
+				cntavail++;	
+			}
 		}
 
 		// 3) Write output
-		PORTB = cntavail;
+		PORTC = cntavail;
 	}
 	return 0;
 }
