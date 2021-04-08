@@ -25,7 +25,7 @@ int main(void) {
 		unsigned char i;
 		for (i = 0; i < 4; i++) {
 			cntavail << 1;
-			cntavail = cntavail | (tempA & 0x01);
+			cntavail = cntavail | (tmpA & 0x01);
 			tmpA >> 1;
 		}
 
