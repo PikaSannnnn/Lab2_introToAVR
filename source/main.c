@@ -14,24 +14,37 @@
 
 int main(void) {
 	DDRA = 0x00; PORTA = 0xFF; // Configure port A's 8 pins as inputs
-	DDRC = 0xFF; PORTC = 0x00; // Configure port B's 8 pins as outputs, initialize to 0s
-	unsigned char tmpA = 0x00; // Temporary variable to hold the value of A
-	unsigned char cntavail = 0x00; // Counter of available spaces
-	unsigned char tmpC = 0x00;
+	DDRB = 0x00; PORTB = 0xFF; // Configure port B's 8 pins as inputs
+	DDRC = 0x00; PORTC = 0xFF; // Configure port C's 8 pins as inputs
+	DDRD = 0xFF; PORTD = 0x00; // Configure port D's 8 pins as inputs; all pins to 0
+	
+	unsigned char tmpA = 0x00; 
+	unsigned char tmpB = 0x00; 
+	unsigned char tmpC = 0x00; 
+	unsigned char tmpD = 0x00; 
+	unsigned char totWeight = 0x00;
 
 	while(1) {
-		// Read pins 3 to 0
-		tmpA = PINA & 0x0F;	
+		// Read all pins
+		tmpA = PINA & 0xFF;	
+		tmpB = PINB & 0xFF;	
+		tmpC = PINC & 0xFF;	
 
-		cntavail = !(tmpA & 0x01) + !((tmpA >> 1) & 0x01) + !((tmpA >> 2) & 0x01) + !((tmpA >> 3) & 0x01);
-		tmpC = cntavail & 0x0F;
+		totWeight = tmpA + tmpB + tmpC;
+		if (totWeight > 140) {
+			tmpD = (tmpD & 0x00) | 0x01;
+		}
 		
-		if (!cntavail) {	// If the number of available spaces is 0 (full), do this
-			tmpC = tmpC | 0x80;
+		if ((tmpA - tmpC) > 80) {
+			tmpD = tmpD | 0x02;
+		}
+		else if ((tmpC - tmpA) > 80) {
+			tmpD = tmpD | 0x02;
 		}
 
-		// 3) Write output
-		PORTC = tmpC;
+		tmpD = tmpD | (totWeight && 0xFC);	// get the top 6 most significant bits
+
+		PORTD = tmpD;
 	}
 	return 0;
 }

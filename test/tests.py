@@ -1,30 +1,34 @@
-tests = [ {'description': 'All Open (0000)',
-    'steps': [ {'inputs': [('PINA',0x00)], 'iterations': 5 } ],
-    'expected': [('PORTC', 4)],
+tests = [ {'description': 'Good Weight, Good Balance [20, 30, 20] (70 kg)',
+    'steps': [ {'inputs': [('PINA',20), ('PINB',30), ('PINC',20)], 'iterations': 5 } ],
+    'expected': [('PORTD', 0x44)],  # 0100 0100
     },
-    {'description': '2 Open (0110)',
-    'steps': [ {'inputs': [('PINA', 0x06)], 'iterations': 5 } ],
-    'expected': [('PORTC', 2)],
+    {'description': 'Good Weight, Bad Balance A-C [100, 10, 10] (120 kg)',
+    'steps': [ {'inputs': [('PINA',100), ('PINB',10), ('PINC',10)], 'iterations': 5 } ],
+    'expected': [('PORTD', 0x7A)],  # 0111 1010
     },
-    {'description': '1 Opened (1011)',
-    'steps': [ {'inputs': [('PINA',0x0B)], 'iterations': 5 } ],
-    'expected': [('PORTC', 1)],
+    {'description': 'Good Weight, Bad Balance C-A [10, 10, 100] (120 kg)',
+    'steps': [ {'inputs': [('PINA',10), ('PINB',10), ('PINC',100)], 'iterations': 5 } ],
+    'expected': [('PORTD', 0x7A)],  # 0111 1010
     },
-    {'description': '3 Opened (0010)',
-    'steps': [ {'inputs': [('PINA',0x02)], 'iterations': 5 } ],
-    'expected': [('PORTC', 3)],
+    {'description': 'Bad Weight, Good Balance [60, 50, 80] (190 kg)',
+    'steps': [ {'inputs': [('PINA',60), ('PINB',50), ('PINC',80)], 'iterations': 5 } ],
+    'expected': [('PORTD', 0xBD)],  # 1011 1101
     },
-    {'description': 'All Taken (1111)',
-    'steps': [ {'inputs': [('PINA',0x0F)], 'iterations': 5 } ],
-    'expected': [('PORTC', 0x80)],
+    {'description': 'Bad Weight, Bad Balance A-C [120, 50, 20] (190 kg)',
+    'steps': [ {'inputs': [('PINA',120), ('PINB',50), ('PINC',20)], 'iterations': 5 } ],
+    'expected': [('PORTD', 0xBF)],  # 1011 1111
     },
-    {'description': 'TESTING FAIL: 0100 -> Correct: 3; Testing: 0 + "Full" bit',     # This test will get a fail on purpose
-    'steps': [ {'inputs': [('PINA',0x04)], 'iterations': 5 } ],
-    'expected': [('PORTC', 0x80)],
+    {'description': 'Bad Weight, Bad Balance C-A [20, 50, 120] (190 kg)',
+    'steps': [ {'inputs': [('PINA',20), ('PINB',50), ('PINC',120)], 'iterations': 5 } ],
+    'expected': [('PORTD', 0xBF)],  # 1011 1111
     },
-    {'description': 'TESTING FAIL: 1111 -> Correct: 0 + "Full" bit; Testing: 4 + "Full" bit',     # This test will get a fail on purpose
-    'steps': [ {'inputs': [('PINA',0x0F)], 'iterations': 5 } ],
-    'expected': [('PORTC', 0x84)],
+    {'description': 'TESTING FAIL: Bad Weight, Bad Balance -> Correct: 190 kg + D0 & D1; Testing: 0 kg + !D0 & !D1',  # This test will get a fail on purpose
+    'steps': [ {'inputs': [('PINA',20), ('PINB',50), ('PINC',120)], 'iterations': 5 } ],
+    'expected': [('PORTD', 0x00)],  # 1011 1111
+    },
+    {'description': 'TESTING FAIL: Good Weight, Good Balance -> Correct: 70 kg + !D0 & !D1; Testing 0 kg + D0 & D1',
+    'steps': [ {'inputs': [('PINA',20), ('PINB',30), ('PINC',20)], 'iterations': 5 } ],
+    'expected': [('PORTD', 0x03)],  # 0100 0100
     },
     ]
 #watch = ['PORTB']
