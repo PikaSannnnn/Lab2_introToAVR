@@ -18,7 +18,7 @@ tests = [ {'description': 'All Open (0000)',
     'steps': [ {'inputs': [('PINA',0x0F)], 'iterations': 5 } ],
     'expected': [('PORTC', 0)],
     },
-    {'description': 'TESTING FAIL: 0100 -> Correct: 1; Testing: 0',     # This test will get a fail on purpose
+    {'description': 'TESTING FAIL: 0100 -> Correct: 3; Testing: 0',     # This test will get a fail on purpose
     'steps': [ {'inputs': [('PINA',0x04)], 'iterations': 5 } ],
     'expected': [('PORTC', 0)],
     },
