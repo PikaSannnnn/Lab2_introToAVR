@@ -17,21 +17,21 @@ int main(void) {
 	DDRC = 0xFF; PORTC = 0x00; // Configure port B's 8 pins as outputs, initialize to 0s
 	unsigned char tmpA = 0x00; // Temporary variable to hold the value of A
 	unsigned char cntavail = 0x00; // Counter of available spaces
+	unsigned char tmpC = 0x00;
 
 	while(1) {
 		// Read pins 3 to 0
 		tmpA = PINA & 0x0F;	
-		// Counting number of available spaces
-		//unsigned char i;
-		// for (i = 0; i < 4; i++) {
-		// 	if (!((tmpA >> i) & 0x01)) {
-		// 		cntavail++;	
-		// 	}
-		// }
+
 		cntavail = !(tmpA & 0x01) + !((tmpA >> 1) & 0x01) + !((tmpA >> 2) & 0x01) + !((tmpA >> 3) & 0x01);
+		tmpC = cntavail & 0x0F;
+		
+		if (!cntavail) {	// If the number of available spaces is 0 (full), do this
+			tmpC = tmpC | 0x80;
+		}
 
 		// 3) Write output
-		PORTC = cntavail;
+		PORTC = tmpC;
 	}
 	return 0;
 }

@@ -16,11 +16,15 @@ tests = [ {'description': 'All Open (0000)',
     },
     {'description': 'All Taken (1111)',
     'steps': [ {'inputs': [('PINA',0x0F)], 'iterations': 5 } ],
-    'expected': [('PORTC', 0)],
+    'expected': [('PORTC', 0x80)],
     },
-    {'description': 'TESTING FAIL: 0100 -> Correct: 1; Testing: 0',     # This test will get a fail on purpose
+    {'description': 'TESTING FAIL: 0100 -> Correct: 3; Testing: 0 + "Full" bit',     # This test will get a fail on purpose
     'steps': [ {'inputs': [('PINA',0x04)], 'iterations': 5 } ],
-    'expected': [('PORTC', 0)],
+    'expected': [('PORTC', 0x80)],
+    },
+    {'description': 'TESTING FAIL: 1111 -> Correct: 0 + "Full" bit; Testing: 4 + "Full" bit',     # This test will get a fail on purpose
+    'steps': [ {'inputs': [('PINA',0x04)], 'iterations': 5 } ],
+    'expected': [('PORTC', 0x84)],
     },
     ]
 #watch = ['PORTB']
