@@ -21,13 +21,7 @@ int main(void) {
 	while(1) {
 		// Read pins 3 to 0
 		tmpA = PINA & 0x0F;	
-		// Counting number of available spaces
-		//unsigned char i;
-		// for (i = 0; i < 4; i++) {
-		// 	if (!((tmpA >> i) & 0x01)) {
-		// 		cntavail++;	
-		// 	}
-		// }
+
 		cntavail = !(tmpA & 0x01) + !((tmpA >> 1) & 0x01) + !((tmpA >> 2) & 0x01) + !((tmpA >> 3) & 0x01);
 
 		// 3) Write output
