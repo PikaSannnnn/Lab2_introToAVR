@@ -42,7 +42,7 @@ int main(void) {
 			tmpD = tmpD | 0x02;
 		}
 
-		tmpD = tmpD | (totWeight & 0x03F0);	// get the top 6 most significant bits, 765 max -> 10 bits will be used
+		tmpD = tmpD | ((totWeight & 0x03F0) >> 2);	// get the top 6 most significant bits, 765 max -> 10 bits will be used
 
 		PORTD = tmpD;
 	}

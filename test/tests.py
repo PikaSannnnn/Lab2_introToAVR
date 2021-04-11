@@ -26,11 +26,11 @@ tests = [ {'description': 'Good Weight, Good Balance [20, 30, 20] (70 kg)',
     'steps': [ {'inputs': [('PINA',200), ('PINB',200), ('PINC',200)], 'iterations': 5 } ],
     'expected': [('PORTD', 0x95)],  # 1001 0101
     },
-    {'description': 'TESTING FAIL: Bad Weight, Bad Balance -> Correct: 190 kg + D0 & D1; Testing: 0 kg + !D0 & !D1',  # This test will get a fail on purpose
+    {'description': 'TESTING FAIL: Bad Weight, Bad Balance -> Correct: 0x2F ; Testing: 0x00',  # This test will get a fail on purpose
     'steps': [ {'inputs': [('PINA',20), ('PINB',50), ('PINC',120)], 'iterations': 5 } ],
     'expected': [('PORTD', 0x00)],  
     },
-    {'description': 'TESTING FAIL: Good Weight, Good Balance -> Correct: 70 kg + !D0 & !D1; Testing 0 kg + D0 & D1',  # This test will get a fail on purpose
+    {'description': 'TESTING FAIL: Good Weight, Good Balance -> Correct: 0x10; Testing: 0x03',  # This test will get a fail on purpose
     'steps': [ {'inputs': [('PINA',20), ('PINB',30), ('PINC',20)], 'iterations': 5 } ],
     'expected': [('PORTD', 0x03)],  
     },
