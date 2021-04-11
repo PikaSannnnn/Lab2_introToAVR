@@ -22,7 +22,7 @@ int main(void) {
 	unsigned char tmpB = 0x00; 
 	unsigned char tmpC = 0x00; 
 	unsigned char tmpD = 0x00; 
-	unsigned char totWeight = 0x00;
+	unsigned short totWeight = 0x0000;
 
 	while(1) {
 		// Read all pins
@@ -42,7 +42,7 @@ int main(void) {
 			tmpD = tmpD | 0x02;
 		}
 
-		tmpD = tmpD | (totWeight && 0xFC);	// get the top 6 most significant bits
+		tmpD = tmpD | (totWeight & 0x03F0);	// get the top 6 most significant bits, 765 max -> 10 bits will be used
 
 		PORTD = tmpD;
 	}
