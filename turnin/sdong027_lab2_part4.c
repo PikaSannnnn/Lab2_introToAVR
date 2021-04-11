@@ -29,6 +29,7 @@ int main(void) {
 		tmpA = PINA & 0xFF;	
 		tmpB = PINB & 0xFF;	
 		tmpC = PINC & 0xFF;	
+		tmpD = 0x00;
 
 		totWeight = tmpA + tmpB + tmpC;
 		if (totWeight > 140) {

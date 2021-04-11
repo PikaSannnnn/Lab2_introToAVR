@@ -24,7 +24,7 @@ int main(void) {
 	unsigned char tmpD = 0x00; 
 	unsigned short totWeight = 0x0000;
 
-	while(1) {
+	while(1) {	// 0 35 85, 0 56 85
 		// Read all pins
 		tmpA = PINA & 0xFF;	
 		tmpB = PINB & 0xFF;	
